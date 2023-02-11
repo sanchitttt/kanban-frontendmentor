@@ -1,0 +1,49 @@
+/* *{
+    -webkit-user-select: none;
+} */
+
+.inputFieldDark {
+    color: white !important;
+    font-family: 'Plus Jakarta Sans' !important;
+}
+
+.inputFieldLight {
+    color: black !important;
+    font-family: 'Plus Jakarta Sans' !important;
+}
+
+#Layer_1 {
+    transform: scale(2);
+    display: none;
+}
+
+::-webkit-scrollbar {
+    margin-left: 10px;
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /* background-color: red; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #A8A4FF;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #A8A4FF;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #635FC7;
+}
+
+@media screen and (min-width:1280px) {
+    #Layer_1 {
+        display: block;
+    }
+}
