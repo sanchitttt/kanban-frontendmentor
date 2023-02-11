@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import logoLight from '../assets/logoLight.svg';
 import ThemeContext from '../contexts/ThemeContext'
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';

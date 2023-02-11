@@ -13,7 +13,6 @@ function DeleteBoard({ index, setShowDeleteModal }) {
                     boardIndex: index
                 }, { withCredentials: true });
             } catch (error) {
-                console.log(error);
             }
         }
         deleteBoardFromServer();

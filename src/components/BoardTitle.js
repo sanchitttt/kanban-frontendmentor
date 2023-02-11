@@ -4,6 +4,12 @@ const colors = [
   '#67E2AE',
   '#8471F2',
   '#49C4E5',
+  '#67E2AE',
+  '#8471F2',
+  '#49C4E5',
+  '#67E2AE',
+  '#8471F2',
+  '#49C4E5',
 ]
 
 function BoardTitle({ children, totalTasks, idx }) {

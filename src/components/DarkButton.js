@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import ThemeContext from '../contexts/ThemeContext'
+import React from 'react'
 
 function DarkButton({ children }) {
     return (

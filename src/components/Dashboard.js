@@ -17,7 +17,6 @@ import ViewTask from './ViewTask';
 import CreateBoard from './CreateBoard';
 import EditBoard from './EditBoard';
 import ScrollContainer from 'react-indiana-drag-scroll';
-import DeleteTask from './DeleteTask';
 import DeleteBoard from './DeleteBoard';
 
 
@@ -31,7 +30,6 @@ function Dashboard() {
     const [unauthorizedUser, setUnauthorizedUser] = useState(false);
     const [activeBoard, setActiveBoard] = useState(0);
     const [boardsData, setBoardsData] = useState(null);
-    const [pos, setPos] = useState({ top: 0, left: 0, x: 0, y: 0 });
     const [addTaskModal, setAddTaskModal] = useState(false);
     const [editTaskModal, setEditTaskModal] = useState(false);
     const [createBoardModal, setCreateBoardModal] = useState(false);
@@ -162,15 +160,6 @@ function Dashboard() {
                             </div>
 
                         </div>
-                        {/* {sidebarHidden ?
-                    <div className={`absolute w-[100%] h-[100%] xs:left-[16px] sm:left-[16px] top-[24px] bg-red`}>
-                        <Columns board={boardsData.boards[activeBoard]} />
-                    </div>
-                    :<></>
-                }
-                <div className={``}>
-                    <Columns board={boardsData.boards[activeBoard]} />
-                </div> */}
                         <div id='container' className={` w-[100%] h-[100%] vs:mt-[88px] sm:mt-[88px] md:mt-[105px] flex ml vs:ml-[16px] sm:ml-[16px] ${sidebarHidden ? 'md:ml-[24px]' : 'md:ml-[324px]'}`}>
                             <ScrollContainer horizontal={true} vertical={true}>
                                 <Columns boardIndex={activeBoard} board={boardsData.boards[activeBoard]} />

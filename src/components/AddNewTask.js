@@ -5,7 +5,6 @@ import { ModalsContext } from './Dashboard';
 
 
 export function Tippy({ setTippyHide }) {
-    console.log('executed');
     const modals = useContext(ModalsContext);
     const fn = (e) => {
         let more = document.getElementById('more');
@@ -36,6 +35,7 @@ export function Tippy({ setTippyHide }) {
         return () => {
             document.removeEventListener('click', (e) => fn(e))
         }
+        //eslint-disable-next-line
     }, []);
     const theme = useContext(ThemeContext);
     return <div id='moreTippy' style={{

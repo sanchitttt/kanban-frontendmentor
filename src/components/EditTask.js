@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ThemeContext from '../contexts/ThemeContext'
 import DarkButton from './DarkButton';
 import InputField from './InputField';
@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import routes from '../config/config';
-import ScrollContainer from 'react-indiana-drag-scroll'
 
 const successToast = (text, theme) => {
     return toast.success(text, {
@@ -70,7 +69,7 @@ function EditTask({ fullData, data, setEditTaskModal }) {
 
             const editTaskHandler = async () => {
                 try {
-                    const response = await axios.patch(routes.EDIT_TASK_ROUTE,
+                    await axios.patch(routes.EDIT_TASK_ROUTE,
                         payload,
                         { withCredentials: true }
                     )
@@ -93,6 +92,7 @@ function EditTask({ fullData, data, setEditTaskModal }) {
 
     const removeSubTaskHandler = (e, idx) => {
         const currSubTasks = [...subTasks];
+        //eslint-disable-next-line
         const filtered = currSubTasks.filter((item, index) => {
             if (index !== idx) return item;
         })
@@ -103,9 +103,7 @@ function EditTask({ fullData, data, setEditTaskModal }) {
     return (
 
         <div className={`overflow-scroll vs:w-[343px] sm:w-[343px] vs:h-[600px] sm:h-[500px] md:w-[480px] md:min-h-[700px] rounded-[6px] flex items-center justify-center  ${theme.color === 'dark' ? "bg-dark-grey" : "bg-light-main"}`}>
-
             <div className={` pb-[15px] vs:w-[297px] sm:w-[297px] vs:h-[550px] flex-col sm:h-[500px] md:w-[418px] md:min-h-[700px] flex justify-start flex justify-start `}>
-                {/* <ScrollContainer vertical={true}> */}
                 <div className={`font-jakarata font-bold text-[18px] mt-[29px] leading-[23px] ${theme.color === 'dark' ? "text-light-main" : "text-dark-main"} mb-[27px]`}>Edit Task</div>
                 <div className={`font-jakarata font-bold text-[13px] leading-[15px] mb-[11px] ${theme.color === 'dark' ? "text-light-main" : "text-light-grey"}`}>Title</div>
                 <div className={`mb-[27px]`}><InputField value={title} setValue={setTitle} placeholder={title.length ? title : 'e.g. take a coffee break'} /></div>

@@ -47,20 +47,6 @@ function CreateBoard() {
 
   }
 
-  const successToast = (text, theme) => {
-    return toast.success(text, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: theme,
-
-    });
-  }
-
   const errorToast = (text, theme) => {
     toast.error(text, {
       position: "top-right",
@@ -76,6 +62,7 @@ function CreateBoard() {
   }
 
   const removeHandler = (idx) => {
+    //eslint-disable-next-line
     const filtered = columnNames.filter((item, index) => {
       if (idx !== index) return item;
     });

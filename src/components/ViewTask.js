@@ -34,6 +34,7 @@ export function ViewTaskTippy({ boardIndex, columnIndex, taskIndex, tippyHide, s
         return () => {
             document.removeEventListener('click', (e) => fn(e))
         }
+        //eslint-disable-next-line
     }, []);
 
 
@@ -62,6 +63,7 @@ let changed = false;
 function ViewTask({ data }) {
     const [showTippy, setShowTippy] = useState(false);
     const [subTasks, setSubTasks] = useState(data.subtasks);
+    //eslint-disable-next-line
     const [status, setStatus] = useState(data.status);
 
     const theme = useContext(ThemeContext);
@@ -79,7 +81,7 @@ function ViewTask({ data }) {
                 }
                 const patchTask = async () => {
                     try {
-                        const result = await axios.patch(routes.SUBTASKS_PATCH_ROUTE, payload, { withCredentials: true });
+                        await axios.patch(routes.SUBTASKS_PATCH_ROUTE, payload, { withCredentials: true });
                     } catch (error) {
                         console.log('view task error= ', error);
                     }
@@ -87,6 +89,7 @@ function ViewTask({ data }) {
                 patchTask();
             }
         }
+        //eslint-disable-next-line
     }, []);
     const toggleSubTaskComplete = (idx) => {
         const currTasks = [...subTasks];

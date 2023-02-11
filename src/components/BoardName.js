@@ -1,5 +1,5 @@
 import { Modal } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ThemeContext from '../contexts/ThemeContext'
 import SideBarMobile from './SideBarMobile';
 

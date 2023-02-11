@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ThemeContext from '../contexts/ThemeContext'
 import DarkButton from './DarkButton';
 import InputField from './InputField';
@@ -9,20 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import routes from '../config/config';
 
-
-const successToast = (text, theme) => {
-    return toast.success(text, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: theme,
-
-    });
-}
 
 const errorToast = (text, theme) => {
     toast.error(text, {
@@ -43,31 +29,6 @@ const verifier = (arr) => {
         if (!arr[i].name.length) return false;
     }
     return true;
-}
-
-const initialState = (arr) => {
-    const result = {};
-    for (let i = 0; i < arr.length; i++) {
-        result[i] = arr[i].name;
-    }
-    return result;
-}
-
-const reducerFn = (state, action) => {
-    if (action.type === 'new') {
-        return action.newState;
-    }
-    let key = action.index;
-    switch (action.index) {
-        case 0:
-            return { ...state, 0: action.value };
-        case 1:
-            return { ...state, 1: action.value };
-        case 2:
-            return { ...state, 2: action.value };
-        default:
-            return { ...state, key: action.value }
-    }
 }
 
 function EditBoard({ data ,setShowEditBoard,idx}) {
@@ -92,6 +53,7 @@ function EditBoard({ data ,setShowEditBoard,idx}) {
     }
 
     const removeHandler = (idx) => {
+        //eslint-disable-next-line
         const filtered = columnNames.filter((item, index) => {
             if (idx !== index) return item;
         });

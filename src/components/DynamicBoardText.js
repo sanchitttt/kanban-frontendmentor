@@ -1,9 +1,6 @@
-import React, { useContext } from 'react'
-import ThemeContext from '../contexts/ThemeContext'
+import React from 'react'
 
 function DynamicBoardText({ children, active }) {
-  console.log(active)
-  const theme = useContext(ThemeContext);
   return (
     <div className={`w-[240px] h-[40px]  flex justify-start items-center ml-[25px]`}>
       <div>

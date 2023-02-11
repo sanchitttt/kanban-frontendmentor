@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import CircularProgress, { circularProgressClasses } from "@mui/material/CircularProgress";
 import { useNavigate } from 'react-router-dom';
 import ThemeContext from '../contexts/ThemeContext'
-import LightButton from './LightButton';
-import Header from './Header'
 import InputField from './InputField';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle'
@@ -169,7 +167,6 @@ function Signup() {
         <div id='signupBox' className={`relative rounded-[10px] flex justify-center items-center sm:w-[80%] sm:h-[400px] lg:w-[40%]   ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
 
           <div className={`w-[90%] h-[90%] flex justify-center flex-col justify-around items-center`}>
-            {/* <h1 className={` font-jakarata text-l ${theme.color === 'dark' ? 'text-light-darkBG' : 'text-dark-main '}`}>Signup</h1> */}
             <div className={`w-[90%] sm:my-[5px]`}>
               <InputField value={name} setValue={setName} placeholder={'Name'} color={nameColor} maxLength={30} />
               <div className='text-jakarata text-red'>{nameHelper}</div>

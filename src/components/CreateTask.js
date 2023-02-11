@@ -1,4 +1,3 @@
-import { } from '@mui/material';
 import React, { useContext, useState } from 'react'
 import ThemeContext from '../contexts/ThemeContext'
 import LightButton from './LightButton';
@@ -11,19 +10,7 @@ import Subtasks from './Subtasks';
 import routes from '../config/config';
 import axios from 'axios';
 
-const successToast = (text, theme) => {
-    return toast.success(text, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: theme,
 
-    });
-}
 
 const errorToast = (text, theme) => {
     toast.error(text, {
@@ -52,11 +39,13 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
     const [description, setDescription] = useState('');
     const [subTasks, setSubtasks] = useState([{ title: '', isCompleted: false }, { title: '', isCompleted: false },])
     const [status, setStatus] = useState(data.columns[0].name);
+    //eslint-disable-next-line
     const [columnIndex,setColumnIndex] = useState(0);
 
 
 
     const saveChanges = () => {
+        
         if (!verifier(subTasks)) errorToast('Subtask cant be empty!', theme.color);
         else if (!title.length) errorToast('Title cant be empty', theme.color)
         else {
@@ -73,8 +62,10 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                     break;
                 }
             }
+            //eslint-disable-next-line
             const patchAddTask = async () => {
                 try {
+                    //eslint-disable-next-line
                     const result = await axios.patch(routes.ADD_TASK_ROUTE, payload, { withCredentials: true });
                     setModalOpen(false);
                 } catch (error) {
@@ -94,6 +85,7 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
 
     const removeSubTaskHandler = (e, idx) => {
         const currSubTasks = [...subTasks];
+        //eslint-disable-next-line
         const filtered = currSubTasks.filter((item, index) => {
             if (index !== idx) return item;
         })

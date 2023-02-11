@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import BoardTitle from './BoardTitle';
-import BoardsContext from './Dashboard';
 import NewColumn from './NewColumn';
 import Task from './Task';
 
@@ -11,9 +10,6 @@ const findTasksDone = (arr) => {
         if (arr[i].isCompleted) count++;
     }
     return count;
-}
-function TaskRow() {
-
 }
 
 function Column({ column, idx, boardIndex, columnIndex }) {

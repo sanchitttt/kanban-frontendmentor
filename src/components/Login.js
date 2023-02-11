@@ -4,7 +4,6 @@ import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import routes from "../config/config";
 import ThemeContext from '../contexts/ThemeContext';
-import LightButton from './LightButton';
 import InputField from './InputField';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
