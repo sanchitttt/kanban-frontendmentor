@@ -17,7 +17,7 @@ const verifier = (arr) => {
 }
 
 
-function CreateBoard() {
+function CreateBoard({ addNewBoardModalHandler }) {
   const [name, setName] = useState('');
   const [columnNames, setColumnNames] = useState([
     { name: 'Todo', tasks: [] },
@@ -34,18 +34,16 @@ function CreateBoard() {
         name: name,
         columns: columnNames
       }
-      const postBoard = async () => {
-        try {
-          await axios.patch(routes.ADD_BOARD_ROUTE, payload, { withCredentials: true });
 
-        } catch (error) {
-          console.log('error')
-        }
-      }
-      postBoard();
+      axios.patch(routes.ADD_BOARD_ROUTE, payload, { withCredentials: true })
+        .then((res) => {
+          addNewBoardModalHandler(false);
+        }).catch((err) => {
+          errorToast(err.response.data.details[0].message, theme.color)
+        })
     }
-
   }
+
 
   const errorToast = (text, theme) => {
     toast.error(text, {

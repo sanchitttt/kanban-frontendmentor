@@ -37,29 +37,27 @@ function Dashboard() {
     const [viewTaskModal, setViewTaskModal] = useState(false);
     const [existingBoardData, setExistingBoardData] = useState(null)
     const [deleteBoardModal, setDeleteBoardModal] = useState(false);
-    const [internalServerError, setInternalServorError] = useState()
-
-
+    const [internalServerError, setInternalServerError] = useState()
 
     const theme = useContext(ThemeContext);
     const navigate = useNavigate();
 
-
     useEffect(() => {
         const fetchDashboard = async () => {
             try {
-
                 const response = await axios.get(routes.DASHBOARD_ROUTE, { withCredentials: true });
                 setBoardsData(response.data);
+                // console.log(response.data);
             }
             catch (err) {
+                console.log(err);
                 if (err.response) {
-                    if (err.response.status === 401) {
+                    if (err.response.status === 401 || err.response.status === 404) {
                         setUnauthorizedUser(true);
                     }
                 }
                 else {
-                    setInternalServorError(true);
+                    setInternalServerError(true);
                 }
             }
         }
@@ -122,7 +120,7 @@ function Dashboard() {
                         {createBoardModal && <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>
                             <Modal open={createBoardModal} onClose={() => setCreateBoardModal(false)}>
                                 <div className='absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]'>
-                                    <CreateBoard />
+                                    <CreateBoard addNewBoardModalHandler={setCreateBoardModal} />
                                 </div>
                             </Modal>
                         </div>}
@@ -149,7 +147,7 @@ function Dashboard() {
                             <div className='md:w-[261px] lg:w-[261px] xl:w-[261px] h-[100%] flex items-center'><Logo /></div>
                             <div className='w-[100%] h-[100%] flex items-center'>
                                 <div className={`h-[100%] flex items-center ${sidebarHidden ? 'absolute md:left-[250px] xl:left-[250px] lg:left-[250px]' : 'absolute left-[328px]'}`}>
-                                    <BoardName activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsData.boards} forMobile={window.innerWidth <= 375}>{boardsData.boards[activeBoard].name}</BoardName>
+                                    {boardsData.boards.length? <BoardName activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsData.boards} forMobile={window.innerWidth <= 375}>{boardsData.boards[activeBoard].name}</BoardName>:null}
                                 </div>
                                 <div className=' absolute right-[24px]'>
                                     <AddNewTask />
@@ -161,8 +159,9 @@ function Dashboard() {
 
                         </div>
                         <div id='container' className={` w-[100%] h-[100%] vs:mt-[88px] sm:mt-[88px] md:mt-[105px] flex ml vs:ml-[16px] sm:ml-[16px] ${sidebarHidden ? 'md:ml-[24px]' : 'md:ml-[324px]'}`}>
+
                             <ScrollContainer horizontal={true} vertical={true}>
-                                <Columns boardIndex={activeBoard} board={boardsData.boards[activeBoard]} />
+                                {boardsData.boards.length? <Columns boardIndex={activeBoard} board={boardsData.boards[activeBoard]} />:null}
                             </ScrollContainer>
 
                         </div>

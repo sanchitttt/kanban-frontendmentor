@@ -10,25 +10,17 @@ export function Tippy({ setTippyHide }) {
         let more = document.getElementById('more');
         let moreMobile = document.getElementById('moreMobile');
         let moreTippy = document.getElementById('moreTippy');
+        let moreSvg = document.getElementById('more-svg')
 
-        if (more || moreMobile) {
-            if (more && !moreMobile) {
+        if (more || moreMobile || moreSvg) {
                 if (moreTippy) {
-                    if (!moreTippy.contains(e.target) && !more.contains(e.target)) {
+                    if (!moreSvg.contains(e.target) && !moreTippy.contains(e.target) && !(more.contains(e.target) || moreMobile.contains(e.target))) {
+                        console.log(more.contains(e.target));
                         setTippyHide(true);
                     }
                 }
             }
-            else{
-                if (moreTippy) {
-                    if (!moreTippy.contains(e.target) && !moreMobile.contains(e.target)) {
-                        setTippyHide(true);
-                    }
-                }
-            }
-
-
-        }
+        
     }
     useEffect(() => {
         document.addEventListener('click', (e) => fn(e))

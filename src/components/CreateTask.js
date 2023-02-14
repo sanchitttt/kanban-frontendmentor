@@ -38,7 +38,7 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [subTasks, setSubtasks] = useState([{ title: '', isCompleted: false }, { title: '', isCompleted: false },])
-    const [status, setStatus] = useState(data.columns[0].name);
+    const [status, setStatus] = useState(data?data.columns[0].name:'');
     //eslint-disable-next-line
     const [columnIndex,setColumnIndex] = useState(0);
 
@@ -127,7 +127,7 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                 </div>
                 <div className={`font-jakarata font-bold text-[13px] leading-[15px] mb-[11px] ${theme.color === 'dark' ? "text-light-main" : "text-dark-main"}`}>Status</div>
                 <div className={`mb-[27px]`}>
-                    <SelectInput setColumnIndex={setColumnIndex} columns={data.columns} current={status} setCurrent={setStatus} />
+                    <SelectInput setColumnIndex={setColumnIndex} columns={data?data.columns:[]} current={status} setCurrent={setStatus} />
                 </div>
                 <div className='mb-[30px]'>
                     <div className='w-[100%] h-[40px] '

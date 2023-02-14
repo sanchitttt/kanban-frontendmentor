@@ -31,25 +31,34 @@ const verifier = (arr) => {
     return true;
 }
 
-function EditBoard({ data ,setShowEditBoard,idx}) {
+function EditBoard({ data, setShowEditBoard, idx }) {
     const [name, setName] = useState(data.name);
     const [columnNames, setColumnNames] = useState(data.columns);
     const theme = useContext(ThemeContext);
 
     const saveChanges = () => {
-        if(!verifier(columnNames)) errorToast('Column name cant be empty',theme.color)
-        else{
-            const payload = {
-                name : name,
-                columnName : columnNames,
-                boardIndex : idx
+        try {
+            if (!verifier(columnNames)) errorToast('Column name cant be empty', theme.color)
+            // else if(!name.length) errorToast('Board name cant be empty', theme.color);
+            else {
+                const payload = {
+                    name: name,
+                    columnName: columnNames,
+                    boardIndex: idx
+                }
+
+                axios.patch(routes.EDIT_BOARD_ROUTE, payload, { withCredentials: true }).then(() => {
+                    setShowEditBoard(false);
+                }).catch((err) => {
+                    errorToast(err.response.data.details[0].message, theme.color)
+                })
+
             }
-            const editBoard = async () => {
-                await axios.patch(routes.EDIT_BOARD_ROUTE,payload,{withCredentials:true});
-            }
-            editBoard();
-            setShowEditBoard(false);
+        } catch (error) {
+
+
         }
+
     }
 
     const removeHandler = (idx) => {
@@ -62,7 +71,7 @@ function EditBoard({ data ,setShowEditBoard,idx}) {
 
     const addHandler = (idx) => {
         const curr = columnNames;
-        curr.push({name:'',tasks:[]});
+        curr.push({ name: '', tasks: [] });
         setColumnNames([...curr]);
     }
 

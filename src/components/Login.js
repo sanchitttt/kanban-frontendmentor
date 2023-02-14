@@ -67,6 +67,10 @@ function Login() {
             
           }
         } catch (error) {
+          if (error.response.status === 404) {
+            errorToast(error.response.data.message, theme.color);
+            setLoading(false);
+          }
           if (error.response.status === 401) {
             errorToast(error.response.data.message, theme.color);
             setLoading(false);
