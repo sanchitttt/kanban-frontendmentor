@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useContext } from 'react'
 import routes from '../config/config';
 import ThemeContext from '../contexts/ThemeContext'
+import { ModalsContext } from './Dashboard';
 
-function DeleteBoard({ index, setShowDeleteModal }) {
+function DeleteBoard({ index, setShowDeleteModal, setShowEditBoardModal }) {
     const theme = useContext(ThemeContext);
+    const modals = useContext(ModalsContext);
 
     const deleteHandler = () => {
         const deleteBoardFromServer = async () => {
@@ -17,6 +19,13 @@ function DeleteBoard({ index, setShowDeleteModal }) {
         }
         deleteBoardFromServer();
         setShowDeleteModal(false);
+        setShowEditBoardModal(false);
+        const currBoard = modals.boardsData.val;
+        const filteredBoards = currBoard.boards.filter((board, idx) => {
+            if(idx !== index) return board;
+        })
+        currBoard.boards = filteredBoards;
+        modals.boardsData.method(structuredClone(currBoard));
     }
 
     return (

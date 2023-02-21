@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import routes from '../config/config';
+import { ModalsContext } from './Dashboard';
 
 const verifier = (arr) => {
   for (let i = 0; i < arr.length; i++) {
@@ -24,6 +25,7 @@ function CreateBoard({ addNewBoardModalHandler }) {
     { name: 'Doing', tasks: [] }
   ]);
   const theme = useContext(ThemeContext);
+  const modals = useContext(ModalsContext);
 
 
   const saveChanges = () => {
@@ -37,10 +39,13 @@ function CreateBoard({ addNewBoardModalHandler }) {
 
       axios.patch(routes.ADD_BOARD_ROUTE, payload, { withCredentials: true })
         .then((res) => {
-          addNewBoardModalHandler(false);
         }).catch((err) => {
-          errorToast(err.response.data.details[0].message, theme.color)
-        })
+          errorToast(err.response.data.details[0].message, theme.color);
+        });
+        addNewBoardModalHandler(false);
+          const currBoard = modals.boardsData.val;
+          currBoard.boards.push(payload);
+          modals.boardsData.method(structuredClone(currBoard));
     }
   }
 

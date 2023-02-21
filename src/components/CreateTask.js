@@ -9,6 +9,7 @@ import DarkButton from './DarkButton';
 import Subtasks from './Subtasks';
 import routes from '../config/config';
 import axios from 'axios';
+import { ModalsContext } from './Dashboard';
 
 
 
@@ -35,17 +36,18 @@ const verifier = (arr) => {
 
 function CreateTask({ data, boardIndex, setModalOpen }) {
     const theme = useContext(ThemeContext);
+    const modals = useContext(ModalsContext);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [subTasks, setSubtasks] = useState([{ title: '', isCompleted: false }, { title: '', isCompleted: false },])
-    const [status, setStatus] = useState(data?data.columns[0].name:'');
+    const [status, setStatus] = useState(data ? data.columns[0].name : '');
     //eslint-disable-next-line
-    const [columnIndex,setColumnIndex] = useState(0);
+    const [columnIndex, setColumnIndex] = useState(0);
 
 
 
     const saveChanges = () => {
-        
+
         if (!verifier(subTasks)) errorToast('Subtask cant be empty!', theme.color);
         else if (!title.length) errorToast('Title cant be empty', theme.color)
         else {
@@ -56,8 +58,8 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                 status: status,
                 subtasks: subTasks,
             }
-            for(let i=0;i<data.columns.length;i++){
-                if(data.columns[i].name === status){
+            for (let i = 0; i < data.columns.length; i++) {
+                if (data.columns[i].name === status) {
                     payload.columnIndex = i;
                     break;
                 }
@@ -67,13 +69,26 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                 try {
                     //eslint-disable-next-line
                     const result = await axios.patch(routes.ADD_TASK_ROUTE, payload, { withCredentials: true });
-                    setModalOpen(false);
                 } catch (error) {
                     console.log('error');
                 }
             }
             patchAddTask();
-     
+            setModalOpen(false);
+            let currBoard = modals.boardsData.val;
+
+            for (let i = 0; i < currBoard.boards[boardIndex].columns.length; i++) {
+                if (currBoard.boards[boardIndex].columns[i].name === status) {
+                    currBoard.boards[boardIndex].columns[i].tasks.push({
+                        boardIndex: boardIndex,
+                        title: title,
+                        description: description,
+                        status: status,
+                        subtasks: subTasks,
+                    });
+                }
+            }
+            modals.boardsData.method(structuredClone(currBoard));
         }
     }
     const addSubTaskHandler = () => {
@@ -127,7 +142,7 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                 </div>
                 <div className={`font-jakarata font-bold text-[13px] leading-[15px] mb-[11px] ${theme.color === 'dark' ? "text-light-main" : "text-dark-main"}`}>Status</div>
                 <div className={`mb-[27px]`}>
-                    <SelectInput setColumnIndex={setColumnIndex} columns={data?data.columns:[]} current={status} setCurrent={setStatus} />
+                    <SelectInput setColumnIndex={setColumnIndex} columns={data ? data.columns : []} current={status} setCurrent={setStatus} />
                 </div>
                 <div className='mb-[30px]'>
                     <div className='w-[100%] h-[40px] '

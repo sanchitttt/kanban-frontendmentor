@@ -2,9 +2,11 @@ import axios from 'axios';
 import React, { useContext } from 'react'
 import routes from '../config/config';
 import ThemeContext from '../contexts/ThemeContext'
+import { ModalsContext } from './Dashboard';
 
 function DeleteTask({ boardIndex, columnIndex, taskIndex, setShowModal }) {
     const theme = useContext(ThemeContext);
+    const modals = useContext(ModalsContext);
 
     const deleteHandler = () => {
         const deleteBoardFromServer = async () => {
@@ -20,6 +22,32 @@ function DeleteTask({ boardIndex, columnIndex, taskIndex, setShowModal }) {
         }
         deleteBoardFromServer();
         setShowModal(false);
+        modals.viewTask.method(false);
+        const currBoards = modals.boardsData.val;
+        console.log(boardIndex, columnIndex, taskIndex);
+        const filteredBoards = currBoards.boards.filter((board, index) => {
+            if (index === boardIndex) {
+                for (let j = 0; j < board.columns.length; j++) {
+                    if (j === columnIndex) {
+                        console.log('reached');
+                        const filteredTasks = board.columns[j].tasks.filter((task,idx) => {
+                            if(idx !== taskIndex) return task;
+                        })
+                        board.columns[j].tasks = filteredTasks;
+                        return board;
+                    }
+                    else {
+                        return board;
+                    }
+                }
+            }
+            else {
+                return board;
+            }
+        })
+        currBoards.boards = filteredBoards;
+        modals.boardsData.method(structuredClone(currBoards));
+
     }
 
     return (

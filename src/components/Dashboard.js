@@ -100,6 +100,7 @@ function Dashboard() {
         return <div className={`overflow-y-hidden overflow-x-hidden w-[100vw] relative h-[100vh] flex flex-col ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
             <BoardsContext.Provider value={boardsData}>
                 <ModalsContext.Provider value={{
+                    boardsData: { val: boardsData,method: setBoardsData },
                     addTask: { val: addTaskModal, method: setAddTaskModal },
                     editTask: { val: editTaskModal, method: setEditTaskModal },
                     editBoard: { val: editBoardModal, method: setEditBoardModal },
@@ -136,7 +137,7 @@ function Dashboard() {
                                 onClose={() => setDeleteBoardModal(false)}
                             >
                                 <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>
-                                    <DeleteBoard index={activeBoard} setShowDeleteModal={setDeleteBoardModal} />
+                                    <DeleteBoard setShowEditBoardModal={setEditBoardModal} index={activeBoard} setShowDeleteModal={setDeleteBoardModal} />
                                 </div>
                             </Modal>
                         </div>}
@@ -147,7 +148,7 @@ function Dashboard() {
                             <div className='md:w-[261px] lg:w-[261px] xl:w-[261px] h-[100%] flex items-center'><Logo /></div>
                             <div className='w-[100%] h-[100%] flex items-center'>
                                 <div className={`h-[100%] flex items-center ${sidebarHidden ? 'absolute md:left-[250px] xl:left-[250px] lg:left-[250px]' : 'absolute left-[328px]'}`}>
-                                    {boardsData.boards.length? <BoardName activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsData.boards} forMobile={window.innerWidth <= 375}>{boardsData.boards[activeBoard].name}</BoardName>:null}
+                                    {boardsData.boards.length ? <BoardName activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsData.boards} forMobile={window.innerWidth <= 375}>{boardsData.boards[activeBoard].name}</BoardName> : null}
                                 </div>
                                 <div className=' absolute right-[24px]'>
                                     <AddNewTask />
@@ -161,7 +162,7 @@ function Dashboard() {
                         <div id='container' className={` w-[100%] h-[100%] vs:mt-[88px] sm:mt-[88px] md:mt-[105px] flex ml vs:ml-[16px] sm:ml-[16px] ${sidebarHidden ? 'md:ml-[24px]' : 'md:ml-[324px]'}`}>
 
                             <ScrollContainer horizontal={true} vertical={true}>
-                                {boardsData.boards.length? <Columns boardIndex={activeBoard} board={boardsData.boards[activeBoard]} />:null}
+                                {boardsData.boards.length ? <Columns boardIndex={activeBoard} board={boardsData.boards[activeBoard]} /> : null}
                             </ScrollContainer>
 
                         </div>
