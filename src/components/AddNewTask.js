@@ -81,7 +81,7 @@ function AddNewTask({ disabled }) {
                 </div>
             </div>
 
-            <div className='lg:flex md:flex xl:flex sm:hidden justify-between xs:hidden w-[192px] h-[48px] flex items-center'>
+            <div className='lg:flex md:flex xl:flex vs:hidden justify-between xs:hidden w-[192px] h-[48px] flex items-center'>
                 <div className={`w-[164px] h-[48px] hover:cursor-pointer flex items-center justify-center rounded-full ${disabled ? 'bg-mainPurpleHover' : 'bg-mainPurple'}`}
                     onClick={() => modals.addTask.method(true)}
                 >
