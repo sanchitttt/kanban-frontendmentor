@@ -34,16 +34,15 @@ function GenerateBoardModal({ boardsData, setBoardsData, setGenerateBoardModal }
     const theme = useContext(ThemeContext);
 
 
-const makeApiCallForGeneratingBoard = (event, promptValue) => {
+
+    const makeApiCallForGeneratingBoard = (event, promptValue) => {
         if (!prompt.length) errorToast('Prompt cant be empty', theme.color)
         else {
-            setLoading(true);
             const fetch = async () => {
                 try {
-                    const result = await axios.post(routes.GENERATE_BOARD_ROUTE, { prompt: promptValue, email: modals.boardsData.val.email }, { withCredentials: true })
+                    const result = await axios.post(routes.GENERATE_BOARD_ROUTE, { prompt: promptValue }, { withCredentials: true })
                     const curr = modals.boardsData.val;
                     console.log(result.data, result.data);
-                    setLoading(false);
                     curr.boards.push(result.data);
                     modals.boardsData.method({ ...curr });
                     setGenerateBoardModal(false);
@@ -51,10 +50,11 @@ const makeApiCallForGeneratingBoard = (event, promptValue) => {
                 } catch (err) {
                     console.log(err);
                     errorToast('Enter a valid prompt', theme.color);
-                    setLoading(false);
+
                 }
             }
             fetch();
+            setLoading(true);
         }
     }
 

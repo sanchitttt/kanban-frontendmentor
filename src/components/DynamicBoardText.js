@@ -2,9 +2,7 @@ import React from 'react'
 
 function DynamicBoardText({ children, active }) {
   return (
-    <div className={`w-[250px] h-[50px]  flex justify-start items-center ml-[25px]`}
-      role='button'
-    >
+    <div className={`w-[250px] h-[50px]  flex justify-start items-center ml-[25px]`}>
       <div>
         <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
           <path
