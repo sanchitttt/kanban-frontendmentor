@@ -6,9 +6,10 @@ import DynamicBoardText from './DynamicBoardText';
 import HideSidebar from './HideSidebar';
 import ThemeToggle from './ThemeToggle';
 import Logo from './Logo';
+import GenerateBoardForMe from './GenerateBoardForMeButton';
 
 
-function SideBarDesktop({boardsNames, activeBoard, setActiveBoard,setSidebarHidden }) {
+function SideBarDesktop({ boardsNames, activeBoard, setActiveBoard, setSidebarHidden }) {
   const theme = useContext(ThemeContext);
 
   return (
@@ -29,7 +30,9 @@ function SideBarDesktop({boardsNames, activeBoard, setActiveBoard,setSidebarHidd
               <div>
                 <CreateNewBoardButton />
               </div>
-
+              <div>
+                <GenerateBoardForMe />
+              </div>
             </div>
           </div>
 

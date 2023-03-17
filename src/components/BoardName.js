@@ -3,12 +3,12 @@ import React, { useContext, useState } from 'react'
 import ThemeContext from '../contexts/ThemeContext'
 import SideBarMobile from './SideBarMobile';
 
-function BoardName({ children, forMobile,boardsNames ,activeBoard,setActiveBoard}) {
+function BoardName({ children, forMobile, boardsNames, activeBoard, setActiveBoard }) {
 
     const [showMobileSidebar, setShowMobileSideBar] = useState(false);
     const theme = useContext(ThemeContext);
     if (!forMobile) {
-        return <div className={`${theme.color === 'dark' ? 'text-light-main' : 'text-dark-main'} font-bold vs:w-[159px] sm:w-[159px] vs:h-[23px] sm:h-[23px] vs:text-[18px] vs:text-[18px] sm:text-[18px] md:text-[20px] lg:text-[20px] xl:text-[20px]   md:w-[159px] lg:w-[159px] xl:w-[159px] md:h-[25px] lg:h-[25px] xl:h-[25px]`} >
+        return <div className={`${theme.color === 'dark' ? 'text-light-main' : 'text-dark-main'} font-bold vs:w-[300px] sm:w-[300px] vs:h-[23px] sm:h-[23px] vs:text-[18px] vs:text-[18px] sm:text-[18px] md:text-[20px] lg:text-[20px] xl:text-[20px]   md:w-[300px] lg:w-[300px] xl:w-[300px] md:h-[25px] lg:h-[25px] xl:h-[25px]`} >
             <div className={`font-jakarata `}>
                 {children}
             </div>
@@ -16,9 +16,9 @@ function BoardName({ children, forMobile,boardsNames ,activeBoard,setActiveBoard
     }
     else {
         return (
-            <div className={`relative flex items-center justify-between ${theme.color === 'dark' ? 'text-light-main' : 'text-dark-main'} font-bold vs:w-[159px] sm:w-[159px] vs:h-[23px] sm:h-[23px] vs:text-[18px] vs:text-[18px] sm:text-[18px] md:text-[20px] lg:text-[20px] xl:text-[20px]   md:w-[159px] lg:w-[159px] xl:w-[159px] md:h-[25px] lg:h-[25px] xl:h-[25px]`} >
+            <div className={`relative flex items-center justify-between ${theme.color === 'dark' ? 'text-light-main' : 'text-dark-main'} font-bold vs:w-[159px] sm:w-[159px] vs:h-[23px] sm:h-[23px] vs:text-[18px] vs:text-[18px] sm:text-[18px] md:text-[20px] lg:text-[20px] xl:text-[20px]   md:w-[159px] lg:w-[300px] xl:w-[300px] md:h-[25px] lg:h-[25px] xl:h-[25px]`} >
                 <div className={`font-jakarata `}>
-                    {children}
+                    {children.length > 20 ? children.slice(0, 20) + '...' : children}
                 </div>
                 <div
                     onClick={() => setShowMobileSideBar(true)}
@@ -30,7 +30,7 @@ function BoardName({ children, forMobile,boardsNames ,activeBoard,setActiveBoard
                 {showMobileSidebar &&
                     <Modal open={showMobileSidebar} onClose={() => setShowMobileSideBar(false)}>
                         <div className='absolute left-[50%] translate-x-[-50%] top-[20%] translate-y-[-20%]'>
-                            <SideBarMobile activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsNames} />
+                            <SideBarMobile setShowMobileSideBar={setShowMobileSideBar} activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsNames} />
                         </div>
 
                     </Modal>

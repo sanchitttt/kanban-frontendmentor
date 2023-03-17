@@ -18,14 +18,14 @@ const verifier = (arr) => {
 }
 
 
-function CreateBoard({ addNewBoardModalHandler }) {
+function CreateBoard({ boardsData, setBoardsData }) {
+  const modals = useContext(ModalsContext);
   const [name, setName] = useState('');
   const [columnNames, setColumnNames] = useState([
     { name: 'Todo', tasks: [] },
     { name: 'Doing', tasks: [] }
   ]);
   const theme = useContext(ThemeContext);
-  const modals = useContext(ModalsContext);
 
 
   const saveChanges = () => {
@@ -40,12 +40,14 @@ function CreateBoard({ addNewBoardModalHandler }) {
       axios.patch(routes.ADD_BOARD_ROUTE, payload, { withCredentials: true })
         .then((res) => {
         }).catch((err) => {
-          errorToast(err.response.data.details[0].message, theme.color);
-        });
-        addNewBoardModalHandler(false);
-          const currBoard = modals.boardsData.val;
-          currBoard.boards.push(payload);
-          modals.boardsData.method(structuredClone(currBoard));
+          if (err.response.status === 400) {
+            errorToast(err.response.data, theme.color);
+          }
+          errorToast(err.response.data.details[0].message, theme.color)
+        })
+      boardsData.boards.push(payload);
+      setBoardsData({ ...boardsData });
+      modals.createBoard.method(false);
     }
   }
 

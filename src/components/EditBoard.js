@@ -48,11 +48,10 @@ function EditBoard({ data, setShowEditBoard, idx }) {
                 }
 
                 axios.patch(routes.EDIT_BOARD_ROUTE, payload, { withCredentials: true }).then(() => {
-                    setShowEditBoard(false);
                 }).catch((err) => {
                     errorToast(err.response.data.details[0].message, theme.color)
                 })
-
+                setShowEditBoard(false);
             }
         } catch (error) {
 

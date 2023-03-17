@@ -133,7 +133,6 @@ function Signup() {
           console.log(response.data);
           if (responseMessage === 'Email already taken') {
             errorToast(responseMessage, theme.color);
-            setLoading(false);
           }
           else {
             setLoading(false);

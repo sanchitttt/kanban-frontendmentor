@@ -56,15 +56,15 @@ function Login() {
       }
       const loginUser = async () => {
         try {
-          const response = await axios.post(routes.LOGIN_ROUTE, loginBody,{withCredentials:true});
+          const response = await axios.post(routes.LOGIN_ROUTE, loginBody, { withCredentials: true });
           if (response.status === 200) {
             setLoading(false);
-            successToast('Redirecting you to dashboard...',theme.color)
+            successToast('Redirecting you to dashboard...', theme.color)
             let id = setTimeout(() => {
-                navigate('/dashboard');
-                clearTimeout(id);
-            },1000)
-            
+              navigate('/dashboard');
+              clearTimeout(id);
+            }, 1000)
+
           }
         } catch (error) {
           if (error.response.status === 404) {
@@ -75,7 +75,7 @@ function Login() {
             errorToast(error.response.data.message, theme.color);
             setLoading(false);
           }
-          else if(error.response.status === 400){
+          else if (error.response.status === 400) {
             errorToast('Invalid format of email or password', theme.color);
             setLoading(false);
           }

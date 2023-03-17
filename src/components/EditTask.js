@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import routes from '../config/config';
-import { ModalsContext } from './Dashboard';
 
 const successToast = (text, theme) => {
     return toast.success(text, {
@@ -53,9 +52,6 @@ function EditTask({ fullData, data, setEditTaskModal }) {
     const [subTasks, setSubtasks] = useState(data.subtasks);
     const [status, setStatus] = useState(data.status);
 
-    const modals = useContext(ModalsContext);
-
-    const { boardIndex, columnIndex, taskIndex } = data;
 
     const saveChanges = () => {
         if (!verifier(subTasks)) {
@@ -84,16 +80,6 @@ function EditTask({ fullData, data, setEditTaskModal }) {
             }
             editTaskHandler();
             setEditTaskModal(false);
-            const currBoard = modals.boardsData.val;
-            currBoard.boards[boardIndex].columns[columnIndex].tasks[taskIndex] = {
-                subtasks: subTasks,
-                title: title,
-                description: description,
-                status: status
-            }
-            modals.boardsData.method(structuredClone(currBoard));
-            modals.viewTask.method(false);
-
         }
     }
 

@@ -4,7 +4,7 @@ import routes from '../config/config';
 import ThemeContext from '../contexts/ThemeContext'
 import { ModalsContext } from './Dashboard';
 
-function DeleteBoard({ index, setShowDeleteModal, setShowEditBoardModal }) {
+function DeleteBoard({ index, setShowDeleteModal, setActiveBoard }) {
     const theme = useContext(ThemeContext);
     const modals = useContext(ModalsContext);
 
@@ -17,15 +17,15 @@ function DeleteBoard({ index, setShowDeleteModal, setShowEditBoardModal }) {
             } catch (error) {
             }
         }
+        const curr = modals.boardsData.val;
+        const filtered = curr.boards.filter((item, idx) => {
+            if (idx !== index) return item;
+        })
         deleteBoardFromServer();
         setShowDeleteModal(false);
-        setShowEditBoardModal(false);
-        const currBoard = modals.boardsData.val;
-        const filteredBoards = currBoard.boards.filter((board, idx) => {
-            if(idx !== index) return board;
-        })
-        currBoard.boards = filteredBoards;
-        modals.boardsData.method(structuredClone(currBoard));
+        curr.boards = filtered;
+        setActiveBoard(filtered.length ? filtered.length - 1 : 0);
+        modals.boardsData.method({ ...curr });
     }
 
     return (

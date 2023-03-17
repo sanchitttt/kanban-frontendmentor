@@ -1,12 +1,9 @@
-import React, { useContext } from 'react'
-import { ModalsContext } from './Dashboard'
+import React from 'react'
 
 function AllBoardsText({count}) {
-  const modals = useContext(ModalsContext);
-
   return (
     <div className='font-jakarata text-light-grey font text-[12px] font-bold w-[]'>
-        ALL BOARDS ({modals.boardsData.val.boards.length})
+        ALL BOARDS ({count})
     </div>
   )
 }

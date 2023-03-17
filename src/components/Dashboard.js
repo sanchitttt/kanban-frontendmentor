@@ -18,6 +18,8 @@ import CreateBoard from './CreateBoard';
 import EditBoard from './EditBoard';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import DeleteBoard from './DeleteBoard';
+import GenerateBoardForMe from './GenerateBoardForMeButton';
+import GenerateBoardModal from './GenerateBoardModal';
 
 
 
@@ -34,10 +36,12 @@ function Dashboard() {
     const [editTaskModal, setEditTaskModal] = useState(false);
     const [createBoardModal, setCreateBoardModal] = useState(false);
     const [editBoardModal, setEditBoardModal] = useState(false);
+    const [generateBoardModalState, setGenerateBoardModalState] = useState(false);
     const [viewTaskModal, setViewTaskModal] = useState(false);
     const [existingBoardData, setExistingBoardData] = useState(null)
     const [deleteBoardModal, setDeleteBoardModal] = useState(false);
     const [internalServerError, setInternalServerError] = useState()
+
 
     const theme = useContext(ThemeContext);
     const navigate = useNavigate();
@@ -84,6 +88,7 @@ function Dashboard() {
             </div>
         )
     }
+
     if (unauthorizedUser) {
         return (
             <div className={`w-[100vw] flex items-center justify-center relative h-[100vh] ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
@@ -100,13 +105,14 @@ function Dashboard() {
         return <div className={`overflow-y-hidden overflow-x-hidden w-[100vw] relative h-[100vh] flex flex-col ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
             <BoardsContext.Provider value={boardsData}>
                 <ModalsContext.Provider value={{
-                    boardsData: { val: boardsData,method: setBoardsData },
+                    boardsData: { val: boardsData, method: setBoardsData },
                     addTask: { val: addTaskModal, method: setAddTaskModal },
                     editTask: { val: editTaskModal, method: setEditTaskModal },
                     editBoard: { val: editBoardModal, method: setEditBoardModal },
                     createBoard: { val: createBoardModal, method: setCreateBoardModal },
                     viewTask: { val: viewTaskModal, method: setViewTaskModal },
                     deleteBoard: { val: deleteBoardModal, method: setDeleteBoardModal },
+                    generateBoard: { val: generateBoardModalState, method: setGenerateBoardModalState }
                 }}>
                     <SetBoardDataContext.Provider value={setExistingBoardData}>
                         <Modal open={addTaskModal} onClose={() => setAddTaskModal(false)} ><div className='absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]'>
@@ -121,7 +127,7 @@ function Dashboard() {
                         {createBoardModal && <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>
                             <Modal open={createBoardModal} onClose={() => setCreateBoardModal(false)}>
                                 <div className='absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]'>
-                                    <CreateBoard addNewBoardModalHandler={setCreateBoardModal} />
+                                    <CreateBoard boardsData={boardsData} setBoardsData={setBoardsData} addNewBoardModalHandler={setCreateBoardModal} />
                                 </div>
                             </Modal>
                         </div>}
@@ -137,18 +143,29 @@ function Dashboard() {
                                 onClose={() => setDeleteBoardModal(false)}
                             >
                                 <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>
-                                    <DeleteBoard setShowEditBoardModal={setEditBoardModal} index={activeBoard} setShowDeleteModal={setDeleteBoardModal} />
+                                    <DeleteBoard setShowEditBoardModal={setEditBoardModal} index={activeBoard} setActiveBoard={setActiveBoard} setShowDeleteModal={setDeleteBoardModal} />
                                 </div>
                             </Modal>
                         </div>}
 
+                        {generateBoardModalState && <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'
+                        >
+                            <Modal open={generateBoardModalState}
+                                onClose={() => setGenerateBoardModalState(false)}
+                            >
+                                <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>
+                                    <GenerateBoardModal boardsData={boardsData} setBoardsData={setBoardsData} index={activeBoard} setGenerateBoardModal={setGenerateBoardModalState} />
+                                </div>
+                            </Modal>
+                        </div>}
 
                         <div className={` header absolute left:0 top:0 md:h-[81px] xl:h-[81px] vs:h-[64px] lg:h-[81px] sm:h-[64px] w-[100%] bg-light-main flex items-center border-b-[1px]  ${theme.color === 'dark' ? 'bg-dark-grey border-dark-lines' : 'bg-light-main border-light-lines'}`}>
 
                             <div className='md:w-[261px] lg:w-[261px] xl:w-[261px] h-[100%] flex items-center'><Logo /></div>
                             <div className='w-[100%] h-[100%] flex items-center'>
                                 <div className={`h-[100%] flex items-center ${sidebarHidden ? 'absolute md:left-[250px] xl:left-[250px] lg:left-[250px]' : 'absolute left-[328px]'}`}>
-                                    {boardsData.boards.length ? <BoardName activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsData.boards} forMobile={window.innerWidth <= 375}>{boardsData.boards[activeBoard].name}</BoardName> : null}
+                                    {boardsData.boards.length ?
+                                        <BoardName activeBoard={activeBoard} setActiveBoard={setActiveBoard} boardsNames={boardsData.boards} forMobile={window.innerWidth <= 375}>{boardsData.boards[activeBoard].name}</BoardName> : null}
                                 </div>
                                 <div className=' absolute right-[24px]'>
                                     <AddNewTask />
