@@ -1,5 +1,5 @@
 # [Kanban](https://kanban-sanchit.vercel.app/register)
-Plan, organize and manage your tasks
+#### Plan, organize and manage your tasks
 
 [![Room GPT](./readme-resources/preview.jpg)](https://kanban-sanchit.vercel.app/register)
 
@@ -44,5 +44,15 @@ Overall, a Kanban board can provide a simple yet powerful tool to streamline wor
     Github
 
 
-# Possible Features
+# Features in Development
+
+• Automatically generate boards for users using AI
+
+# Possible Future Features
+
+• Allow users to search through tasks
+
+• Allow multiple users to collaborate on a board
+
+
 
