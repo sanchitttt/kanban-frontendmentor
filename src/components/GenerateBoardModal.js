@@ -40,7 +40,7 @@ function GenerateBoardModal({ boardsData, setBoardsData, setGenerateBoardModal }
         else {
             const fetch = async () => {
                 try {
-                    const result = await axios.post(routes.GENERATE_BOARD_ROUTE, { prompt: promptValue }, { withCredentials: true })
+                    const result = await axios.post(routes.GENERATE_BOARD_ROUTE, { prompt: promptValue, email : modals.boardsData.val.email }, { withCredentials: true })
                     const curr = modals.boardsData.val;
                     console.log(result.data, result.data);
                     curr.boards.push(result.data);
