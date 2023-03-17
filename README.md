@@ -1,5 +1,7 @@
+# [Kanban](https://kanban-sanchit.vercel.app/register)
+Plan, organize and manage your tasks
 
-# Kanban : Plan, organize and manage your tasks
+[![Room GPT](./readme-resources/preview.jpg)](https://kanban-sanchit.vercel.app/register)
 
 • A Kanban board can provide a clear overview of your tasks and progress.
 
