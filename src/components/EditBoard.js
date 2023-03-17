@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import routes from '../config/config';
+import { ModalsContext } from './Dashboard';
 
 
 const errorToast = (text, theme) => {
@@ -35,6 +36,7 @@ function EditBoard({ data, setShowEditBoard, idx }) {
     const [name, setName] = useState(data.name);
     const [columnNames, setColumnNames] = useState(data.columns);
     const theme = useContext(ThemeContext);
+    const modals = useContext(ModalsContext);
 
     const saveChanges = () => {
         try {
@@ -51,6 +53,10 @@ function EditBoard({ data, setShowEditBoard, idx }) {
                 }).catch((err) => {
                     errorToast(err.response.data.details[0].message, theme.color)
                 })
+                const curr = modals.boardsData.val;
+                curr.boards[idx].name = name;
+                curr.boards[idx].columns = columnNames;
+                modals.boardsData.method({ ...curr });
                 setShowEditBoard(false);
             }
         } catch (error) {
