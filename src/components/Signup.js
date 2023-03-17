@@ -164,7 +164,7 @@ function Signup() {
           <div>
           </div>
         </div>
-        <div id='signupBox' className={`relative rounded-[10px] flex justify-center items-center sm:w-[80%] sm:h-[400px] lg:w-[40%]   ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
+        <div id='signupBox' className={`relative rounded-[10px] flex justify-center items-center vs:w-[80%] vs:h-[400px] lg:w-[40%]   ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
 
           <div className={`w-[90%] h-[90%] flex justify-center flex-col justify-around items-center`}>
             <div className={`w-[90%] sm:my-[5px]`}>
