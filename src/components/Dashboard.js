@@ -40,7 +40,8 @@ function Dashboard() {
     const [viewTaskModal, setViewTaskModal] = useState(false);
     const [existingBoardData, setExistingBoardData] = useState(null)
     const [deleteBoardModal, setDeleteBoardModal] = useState(false);
-    const [internalServerError, setInternalServerError] = useState()
+    const [internalServerError, setInternalServerError] = useState();
+    const [modifyTasksInformation, setModifyTasksInformation] = useState();
 
 
     const theme = useContext(ThemeContext);
@@ -112,7 +113,8 @@ function Dashboard() {
                     createBoard: { val: createBoardModal, method: setCreateBoardModal },
                     viewTask: { val: viewTaskModal, method: setViewTaskModal },
                     deleteBoard: { val: deleteBoardModal, method: setDeleteBoardModal },
-                    generateBoard: { val: generateBoardModalState, method: setGenerateBoardModalState }
+                    generateBoard: { val: generateBoardModalState, method: setGenerateBoardModalState },
+                    tasksInformation: { val: modifyTasksInformation, method: setModifyTasksInformation }
                 }}>
                     <SetBoardDataContext.Provider value={setExistingBoardData}>
                         <Modal open={addTaskModal} onClose={() => setAddTaskModal(false)} ><div className='absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]'>

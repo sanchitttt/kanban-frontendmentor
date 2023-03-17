@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import routes from '../config/config';
+import { ModalsContext } from './Dashboard';
 
 const successToast = (text, theme) => {
     return toast.success(text, {
@@ -47,6 +48,7 @@ const verifier = (arr) => {
 
 function EditTask({ fullData, data, setEditTaskModal }) {
     const theme = useContext(ThemeContext);
+    const models = useContext(ModalsContext);
     const [title, setTitle] = useState(data.title);
     const [description, setDescription] = useState(data.description);
     const [subTasks, setSubtasks] = useState(data.subtasks);
@@ -66,18 +68,29 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                 description: description,
                 status: status
             }
-
+            const { boardIndex, columnIndex, taskIndex } = models.tasksInformation.val
             const editTaskHandler = async () => {
                 try {
                     await axios.patch(routes.EDIT_TASK_ROUTE,
                         payload,
-                        { withCredentials: true }
-                    )
-                    successToast('Tasked edited!', theme.color);
+                        {
+                            withCredentials: true
+                        })
+                   
                 } catch (error) {
                     console.log('error in', routes.EDIT_TASK_ROUTE);
                 }
             }
+            const curr = models.boardsData.val;
+            curr.boards[boardIndex].columns[columnIndex].tasks[taskIndex] = {
+                subtasks: subTasks,
+                title: title,
+                description: description,
+                status: status
+            }
+            successToast('Tasked edited!', theme.color);
+            models.boardsData.method({ ...curr });
+            models.viewTask.method(false);
             editTaskHandler();
             setEditTaskModal(false);
         }

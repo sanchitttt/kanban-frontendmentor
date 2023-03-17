@@ -9,6 +9,7 @@ import DarkButton from './DarkButton';
 import Subtasks from './Subtasks';
 import routes from '../config/config';
 import axios from 'axios';
+import { ModalsContext } from './Dashboard';
 
 
 
@@ -35,20 +36,22 @@ const verifier = (arr) => {
 
 function CreateTask({ data, boardIndex, setModalOpen }) {
     const theme = useContext(ThemeContext);
+    const models = useContext(ModalsContext);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [subTasks, setSubtasks] = useState([{ title: '', isCompleted: false }, { title: '', isCompleted: false },])
-    const [status, setStatus] = useState(data?data.columns[0].name:'');
+    const [status, setStatus] = useState(data ? data.columns[0].name : '');
     //eslint-disable-next-line
-    const [columnIndex,setColumnIndex] = useState(0);
+    const [columnIndex, setColumnIndex] = useState(0);
 
 
 
     const saveChanges = () => {
-        
+
         if (!verifier(subTasks)) errorToast('Subtask cant be empty!', theme.color);
         else if (!title.length) errorToast('Title cant be empty', theme.color)
         else {
+            let columnIndexFound;
             const payload = {
                 boardIndex: boardIndex,
                 title: title,
@@ -56,9 +59,10 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                 status: status,
                 subtasks: subTasks,
             }
-            for(let i=0;i<data.columns.length;i++){
-                if(data.columns[i].name === status){
+            for (let i = 0; i < data.columns.length; i++) {
+                if (data.columns[i].name === status) {
                     payload.columnIndex = i;
+                    columnIndexFound = i;
                     break;
                 }
             }
@@ -72,8 +76,16 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                     console.log('error');
                 }
             }
+            const curr = models.boardsData.val;
+            curr.boards[boardIndex].columns[columnIndexFound].tasks.push({
+                title: title,
+                description: description,
+                status: status,
+                subtasks: subTasks
+            })
+            models.boardsData.method({ ...curr });
+            models.addTask.method(false);
             patchAddTask();
-     
         }
     }
     const addSubTaskHandler = () => {
@@ -127,7 +139,7 @@ function CreateTask({ data, boardIndex, setModalOpen }) {
                 </div>
                 <div className={`font-jakarata font-bold text-[13px] leading-[15px] mb-[11px] ${theme.color === 'dark' ? "text-light-main" : "text-dark-main"}`}>Status</div>
                 <div className={`mb-[27px]`}>
-                    <SelectInput setColumnIndex={setColumnIndex} columns={data?data.columns:[]} current={status} setCurrent={setStatus} />
+                    <SelectInput setColumnIndex={setColumnIndex} columns={data ? data.columns : []} current={status} setCurrent={setStatus} />
                 </div>
                 <div className='mb-[30px]'>
                     <div className='w-[100%] h-[40px] '

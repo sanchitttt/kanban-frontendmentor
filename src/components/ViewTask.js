@@ -41,7 +41,14 @@ export function ViewTaskTippy({ boardIndex, columnIndex, taskIndex, tippyHide, s
     const theme = useContext(ThemeContext);
     return <div id='viewTaskTippy' style={{ boxShadow: theme.color === 'light' ? '0px 10px 20px rgba(54, 78, 126, 0.25)' : '0px 1px 1px #000112' }} className={` rounded-[8px] absolute top-[40px] right-0 w-[192px] h-[96px] flex flex-col  ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-main'}`}>
         <div className={`font-jakarata cursor-pointer leading-[23px] text-[13px] text-light-grey ml-[17px] mt-[24px] mb-[15px]`}
-            onClick={() => modals.editTask.method(true)}
+            onClick={() => {
+                modals.editTask.method(true)
+                modals.tasksInformation.method({
+                    boardIndex: boardIndex,
+                    columnIndex: columnIndex,
+                    taskIndex: taskIndex
+                })
+            }}
         >Edit Task</div>
         <div className={`font-jakarata cursor-pointer leading-[23px] text-[13px]  text-red ml-[17px]`}
             onClick={() => setDeleteTaskModal(true)}

@@ -2,9 +2,12 @@ import axios from 'axios';
 import React, { useContext } from 'react'
 import routes from '../config/config';
 import ThemeContext from '../contexts/ThemeContext'
+import { ModalsContext } from './Dashboard';
 
 function DeleteTask({ boardIndex, columnIndex, taskIndex, setShowModal }) {
     const theme = useContext(ThemeContext);
+    const models = useContext(ModalsContext);
+
 
     const deleteHandler = () => {
         const deleteBoardFromServer = async () => {
@@ -18,7 +21,14 @@ function DeleteTask({ boardIndex, columnIndex, taskIndex, setShowModal }) {
                 console.log(error);
             }
         }
+        const curr = models.boardsData.val;
+        const filteredTasks = curr.boards[boardIndex].columns[columnIndex].tasks.filter((item, idx) => {
+            if (idx !== taskIndex) return item;
+        })
+        curr.boards[boardIndex].columns[columnIndex].tasks = filteredTasks;
+        models.boardsData.method({ ...curr });
         deleteBoardFromServer();
+        models.viewTask.method(false);
         setShowModal(false);
     }
 
