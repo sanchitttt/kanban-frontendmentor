@@ -29,8 +29,8 @@ function DeleteBoard({ index, setShowDeleteModal, setActiveBoard }) {
     }
 
     return (
-        <div className={`rounded-[6px] flex items-center justify-center sm:w-[343px] sm:h-[284px] md:w-[480px] md:h-[229px] ${theme.color === 'dark' ? 'bg-dark-grey' : 'bg-light-main'}`}>
-            <div className='flex flex-col justify-between sm:w-[295px] sm:h-[231px] md:w-[416px] md:h-[152px]'>
+        <div className={`rounded-[6px] flex items-center justify-center vs:w-[343px] vs:h-[284px] md:w-[480px] md:h-[229px] ${theme.color === 'dark' ? 'bg-dark-grey' : 'bg-light-main'}`}>
+            <div className='flex flex-col justify-between vs:w-[295px] vs:h-[231px] md:w-[416px] md:h-[152px]'>
                 <div className='font-jakarata text-bold leading-[23px] text-l text-red'
 
                 >
@@ -40,7 +40,7 @@ function DeleteBoard({ index, setShowDeleteModal, setActiveBoard }) {
                     Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.
                 </div>
 
-                <div className='sm:hidden md:flex w-[100%] flex justify-between'>
+                <div className='vs:hidden md:flex w-[100%] flex justify-between'>
                     <div className='w-[200px] hover:cursor-pointer font-bold h-[40px] rounded-full bg-red  text-[13px] font-jakarta text-light-main flex items-center justify-center'
                         onClick={deleteHandler}
                     >Delete</div>
