@@ -20,7 +20,6 @@ Overall, a Kanban board can provide a simple yet powerful tool to streamline wor
     3) React Router
     4) React Toastify
     5) Axios
-    6) Figma
 
 • Backend
 
@@ -54,6 +53,13 @@ Overall, a Kanban board can provide a simple yet powerful tool to streamline wor
 • Allow users to search through tasks
 
 • Allow multiple users to collaborate on a board
+
+
+# High Level Design
+
+[![High Level Design](./readme-resources/highLevelDesign.jpg)]
+
+
 
 
 
