@@ -76,7 +76,7 @@ function EditBoard({ data, setShowEditBoard, idx }) {
 
     return (
         <div className={`overflow-scroll rounded-[6px] sm:w-[343px] sm:h-[473px] md:w-[480px] md:h-[600px] flex items-center justify-center ${theme.color === 'dark' ? "bg-dark-grey" : "bg-light-main"}`}>
-            <div className='sm:w-[295px] sm:h-[417px] md:w-[414px] md:h-[500px]'>
+            <div className='vs:w-[95%] sm:w-[295px] sm:h-[417px] md:w-[414px] md:h-[500px]'>
                 <div className={`font-jakarata font-bold font-[18px] leading-[23px] ${theme.color === 'dark' ? "text-light-main" : "text-dark-main"} mb-[29px]`}>Edit Board</div>
                 <div className={`font-jakarata font-bold text-[13px] leading-[15px] mb-[11px] ${theme.color === 'dark' ? "text-light-main" : "text-light-grey"}`}>Board Name</div>
                 <div className={`mb-[27px]`}><InputField value={name} setValue={setName} placeholder={'e.g. Web Design'} /></div>
