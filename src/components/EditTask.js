@@ -107,7 +107,6 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                 models.boardsData.method({ ...curr });
                 deleteBoardFromServer();
                 models.viewTask.method(false);
-
             }
             const editTaskHandler = async () => {
                 try {
