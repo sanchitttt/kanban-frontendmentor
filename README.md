@@ -57,7 +57,7 @@ Overall, a Kanban board can provide a simple yet powerful tool to streamline wor
 
 # High Level Design
 
-[![High Level Design](./readme-resources/highLevelDesign.jpg)]
+[![High Level Design](./readme-resources/highLevelDesign.png)
 
 
 
