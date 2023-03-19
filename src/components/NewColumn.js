@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext } from 'react'
 import ThemeContext from '../contexts/ThemeContext'
 import { ModalsContext } from './Dashboard';
@@ -5,6 +6,7 @@ import { ModalsContext } from './Dashboard';
 function NewColumn() {
     const theme = useContext(ThemeContext);
     const modals = useContext(ModalsContext);
+
     return (
         <div
 

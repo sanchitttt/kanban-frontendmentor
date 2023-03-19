@@ -73,16 +73,19 @@ function EditTask({ fullData, data, setEditTaskModal }) {
         else if (!title.length) errorToast('Title cant be empty!', theme.color);
         else {
             const currColumnIndex = returnColumnIndex(status, fullData);
-            const prevColumnIndex = returnColumnIndex(data.status, fullData);
+            let prevColumnIndex = returnColumnIndex(data.status, fullData);
+            const { boardIndex, columnIndex, taskIndex } = models.tasksInformation.val
+            if (prevColumnIndex === -1) prevColumnIndex = columnIndex
+
             const payload = {
                 ...data,
+                columnIndex: currColumnIndex,
+                taskIndex: prevColumnIndex === currColumnIndex ? data.taskIndex : fullData.columns[currColumnIndex].tasks.length,
                 subtasks: subTasks,
                 title: title,
                 description: description,
                 status: status
             }
-
-            const { boardIndex, taskIndex } = models.tasksInformation.val
 
             const deleteTask = () => {
                 const deleteBoardFromServer = async () => {
@@ -104,7 +107,7 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                 models.boardsData.method({ ...curr });
                 deleteBoardFromServer();
                 models.viewTask.method(false);
-                setShowModal(false);
+
             }
             const editTaskHandler = async () => {
                 try {
@@ -119,7 +122,7 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                 }
             }
             const curr = models.boardsData.val;
-            curr.boards[boardIndex].columns[currColumnIndex].tasks[taskIndex] = {
+            curr.boards[boardIndex].columns[currColumnIndex].tasks[ fullData.columns[currColumnIndex].tasks.length] = {
                 subtasks: subTasks,
                 title: title,
                 description: description,

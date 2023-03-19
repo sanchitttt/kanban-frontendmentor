@@ -50,7 +50,9 @@ export function ViewTaskTippy({ boardIndex, columnIndex, taskIndex, tippyHide, s
                 })
             }}
         >Edit Task</div>
-        <div className={`font-jakarata cursor-pointer leading-[23px] text-[13px]  text-red ml-[17px]`}
+        <div 
+        
+        className={`font-jakarata cursor-pointer leading-[23px] text-[13px]  text-red ml-[17px]`}
             onClick={() => setDeleteTaskModal(true)}
         >Delete Task</div>
 
@@ -117,6 +119,8 @@ function ViewTask({ data }) {
                     </div>
                     <div className='relative'
                         onClick={() => setShowTippy(true)}
+                        role='button'
+                        aria-describedby='button'
                     >
                         <svg id='viewTaskSVG' width="5" height="20" xmlns="http://www.w3.org/2000/svg">
                             <g fill="#828FA3" fill-rule="evenodd">

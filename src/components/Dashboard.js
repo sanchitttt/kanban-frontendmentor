@@ -74,6 +74,7 @@ function Dashboard() {
         else setSidebarHidden(true);
     }
 
+
     if (internalServerError) {
         return (
             <div style={{ display: 'flex', flexDirection: 'column' }} className={`w-[100vw] h-[100vh] flex-row flex items-center justify-center relative h-[100vh] ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
@@ -124,6 +125,7 @@ function Dashboard() {
                             <div className='absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]'>
                                 <EditTask fullData={boardsData.boards[activeBoard]} data={existingBoardData} setEditTaskModal={setEditTaskModal} /></div></Modal>}
                         {viewTaskModal && <Modal open={viewTaskModal} onClose={() => setViewTaskModal(false)} >
+                            
                             <div className='absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]'>
                                 <ViewTask data={existingBoardData} /></div></Modal>}
                         {createBoardModal && <div className='absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]'>

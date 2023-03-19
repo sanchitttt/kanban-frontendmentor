@@ -20,10 +20,10 @@ function SideBarDesktop({ boardsNames, activeBoard, setActiveBoard, setSidebarHi
         </div>
         <div className='w-[100%] h-[226px] absolute top-[100px]'>
           <div className='ml-[32px] tracking-[1px] '>
-            <AllBoardsText count={8} />
+            <AllBoardsText count={boardsNames.length} />
             <div className='absolute left-0 mt-[20px]'>
               {boardsNames.map((boardName, idx) => {
-                return <div className={` rounded-r-[999px] ${activeBoard === idx ? 'bg-mainPurple' : ''}`} onClick={() => setActiveBoard(idx)}>
+                return <div key={idx} className={` rounded-r-[999px] ${activeBoard === idx ? 'bg-mainPurple' : ''}`} onClick={() => setActiveBoard(idx)}>
                   <DynamicBoardText key={idx} active={idx === activeBoard} >{boardName.name}</DynamicBoardText>
                 </div>
               })}
