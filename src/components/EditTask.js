@@ -42,9 +42,19 @@ const verifier = (arr) => {
     for (let i = 0; i < arr.length; i++) {
         if (!arr[i].title.length) return false;
     }
-
     return true;
 }
+
+const returnColumnIndex = (status, fullData) => {
+    const columns = [];
+
+    for (let i = 0; i < fullData.columns.length; i++) {
+        columns.push(fullData.columns[i].name);
+    }
+
+    return columns.indexOf(status);
+}
+
 
 function EditTask({ fullData, data, setEditTaskModal }) {
     const theme = useContext(ThemeContext);
@@ -55,12 +65,15 @@ function EditTask({ fullData, data, setEditTaskModal }) {
     const [status, setStatus] = useState(data.status);
 
 
+
     const saveChanges = () => {
         if (!verifier(subTasks)) {
             errorToast('Empty subtask!', theme.color);
         }
         else if (!title.length) errorToast('Title cant be empty!', theme.color);
         else {
+            const currColumnIndex = returnColumnIndex(status, fullData);
+            const prevColumnIndex = returnColumnIndex(data.status, fullData);
             const payload = {
                 ...data,
                 subtasks: subTasks,
@@ -68,7 +81,31 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                 description: description,
                 status: status
             }
-            const { boardIndex, columnIndex, taskIndex } = models.tasksInformation.val
+
+            const { boardIndex, taskIndex } = models.tasksInformation.val
+
+            const deleteTask = () => {
+                const deleteBoardFromServer = async () => {
+                    try {
+                        await axios.patch(routes.DELETE_TASK_ROUTE, {
+                            boardIndex: boardIndex,
+                            columnIndex: prevColumnIndex,
+                            taskIndex: taskIndex
+                        }, { withCredentials: true });
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+                const curr = models.boardsData.val;
+                const filteredTasks = curr.boards[boardIndex].columns[prevColumnIndex].tasks.filter((item, idx) => {
+                    if (idx !== taskIndex) return item;
+                })
+                curr.boards[boardIndex].columns[prevColumnIndex].tasks = filteredTasks;
+                models.boardsData.method({ ...curr });
+                deleteBoardFromServer();
+                models.viewTask.method(false);
+                setShowModal(false);
+            }
             const editTaskHandler = async () => {
                 try {
                     await axios.patch(routes.EDIT_TASK_ROUTE,
@@ -76,13 +113,13 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                         {
                             withCredentials: true
                         })
-                   
+
                 } catch (error) {
                     console.log('error in', routes.EDIT_TASK_ROUTE);
                 }
             }
             const curr = models.boardsData.val;
-            curr.boards[boardIndex].columns[columnIndex].tasks[taskIndex] = {
+            curr.boards[boardIndex].columns[currColumnIndex].tasks[taskIndex] = {
                 subtasks: subTasks,
                 title: title,
                 description: description,
@@ -93,6 +130,9 @@ function EditTask({ fullData, data, setEditTaskModal }) {
             models.viewTask.method(false);
             editTaskHandler();
             setEditTaskModal(false);
+            if (prevColumnIndex !== currColumnIndex) {
+                deleteTask();
+            }
         }
     }
 

@@ -45,7 +45,8 @@ function GenerateBoardModal({ boardsData, setBoardsData, setGenerateBoardModal }
                     const curr = modals.boardsData.val;
                     console.log(result.data, result.data);
                     setLoading(false);
-                    curr.boards.push(result.data);
+                    console.log('curr \n', curr);
+                    curr.boards.push(JSON.parse(JSON.stringify(result.data)));
                     modals.boardsData.method({ ...curr });
                     setGenerateBoardModal(false);
                     successToast('Board created ✅', theme.color)

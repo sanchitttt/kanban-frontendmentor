@@ -12,7 +12,7 @@ function SideBarMobile({ boardsNames, activeBoard, setActiveBoard, setShowMobile
     const modals = useContext(ModalsContext);
 
     return (
-        <div className={`sm:w-[285px] h-[500px] flex rounded-[6px] ${theme.color === 'dark' ? 'bg-dark-grey border-dark-lines' : 'bg-light-main border-light-lines'}`}>
+        <div className={`vs:w-[285px] h-[500px] flex rounded-[6px] ${theme.color === 'dark' ? 'bg-dark-grey border-dark-lines' : 'bg-light-main border-light-lines'}`}>
             <div className=' ml-[32px] tracking-[1px] mt-[22px]  '>
                 <AllBoardsText count={8} />
                 <div className=' h-[260px] absolute left-0 mt-[20px] mb-[30px] overflow-scroll'>
