@@ -121,7 +121,7 @@ function EditTask({ fullData, data, setEditTaskModal }) {
                 }
             }
             const curr = models.boardsData.val;
-            curr.boards[boardIndex].columns[currColumnIndex].tasks[ fullData.columns[currColumnIndex].tasks.length] = {
+            curr.boards[boardIndex].columns[currColumnIndex].tasks[prevColumnIndex!==currColumnIndex?fullData.columns[currColumnIndex].tasks.length:taskIndex] = {
                 subtasks: subTasks,
                 title: title,
                 description: description,
