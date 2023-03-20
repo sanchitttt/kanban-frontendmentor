@@ -92,7 +92,7 @@ function Login() {
       <div className={`absolute bottom-0 w-[100%] flex items-center justify-center ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
         <div><ThemeToggle /></div>
       </div>
-      <div id='signupBox' className={`relative rounded-[10px] flex justify-center items-center sm:w-[80%] sm:h-[350px] lg:w-[40%]   ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
+      <div id='signupBox' className={`relative rounded-[10px] flex justify-center items-center vs:w-[80%] vs:h-[350px] lg:w-[40%]   ${theme.color === 'dark' ? 'bg-dark-darkBG' : 'bg-light-darkBG'}`}>
         <div className={`w-[90%] h-[90%] flex justify-center flex-col justify-around items-center`}>
           <InputField value={email} setValue={setEmail} placeholder={'Email'} />
           <InputField value={password} setValue={setPassword} placeholder={'Password'} type="Password" />
